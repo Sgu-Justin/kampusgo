@@ -64,6 +64,16 @@ class MainActivity : ComponentActivity() {
                         }) {
                             Text("Open profile")
                         }
+
+                        Button(onClick = {
+                            val intent = Intent(
+                                activity,
+                                ProfileXmlActivity::class.java
+                            )
+                            activity.startActivity(intent)
+                        }) {
+                            Text("XML form")
+                        }
                     }
                 }
             }
