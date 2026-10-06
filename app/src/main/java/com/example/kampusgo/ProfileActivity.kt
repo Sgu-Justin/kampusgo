@@ -24,11 +24,13 @@ class ProfileActivity : ComponentActivity() {
 
         val activity = this
         val name = intent.getStringExtra("name") ?: "Guest"
+        val npm = intent.getStringExtra("npm") ?: "-"
 
         setContent {
             KampusGoTheme {
                 Column(modifier = Modifier.padding(24.dp)) {
                     Text(text = "Hello, $name")
+                    Text(text = "NPM: $npm")
 
                     Button(onClick = {
                         val dial = Intent(
@@ -47,6 +49,25 @@ class ProfileActivity : ComponentActivity() {
                         }
                     }) {
                         Text("Call campus")
+                    }
+
+                    Button(onClick = {
+                        val website = Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse("https://www.sgu.ac.id")
+                        )
+
+                        try {
+                            activity.startActivity(website)
+                        } catch (e: ActivityNotFoundException) {
+                            Toast.makeText(
+                                activity,
+                                "No browser on this device",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }) {
+                        Text("Open SGU website")
                     }
                 }
             }
