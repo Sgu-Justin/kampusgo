@@ -29,48 +29,50 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             KampusGoTheme {
-                var showEmpty by remember { mutableStateOf(false) }
-                val events = if (showEmpty) emptyList() else sampleEvents
+                KampusApp {
+                    var showEmpty by remember { mutableStateOf(false) }
+                    val events = if (showEmpty) emptyList() else sampleEvents
 
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Column(
-                        modifier = Modifier
-                            .padding(innerPadding)
-                            .fillMaxSize()
-                    ) {
-                        EventList(
-                            events = events,
-                            onEventClick = { id ->
-                                val intent = Intent(
-                                    activity,
-                                    EventDetailActivity::class.java
-                                )
-                                intent.putExtra("id", id)
-                                activity.startActivity(intent)
-                            },
-                            modifier = Modifier.weight(1f),
-                        )
-
-                        Button(
-                            onClick = { showEmpty = !showEmpty }
+                    Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                        Column(
+                            modifier = Modifier
+                                .padding(innerPadding)
+                                .fillMaxSize()
                         ) {
-                            Text(
-                                if (showEmpty) "Show events"
-                                else "Show empty"
-                            )
-                        }
-
-                        Button(
-                            onClick = {
-                                activity.startActivity(
-                                    Intent(
+                            EventList(
+                                events = events,
+                                onEventClick = { id ->
+                                    val intent = Intent(
                                         activity,
-                                        ProfileXmlActivity::class.java
+                                        EventDetailActivity::class.java
                                     )
+                                    intent.putExtra("id", id)
+                                    activity.startActivity(intent)
+                                },
+                                modifier = Modifier.weight(1f),
+                            )
+
+                            Button(
+                                onClick = { showEmpty = !showEmpty }
+                            ) {
+                                Text(
+                                    if (showEmpty) "Show events"
+                                    else "Show empty"
                                 )
                             }
-                        ) {
-                            Text("XML form")
+
+                            Button(
+                                onClick = {
+                                    activity.startActivity(
+                                        Intent(
+                                            activity,
+                                            ProfileXmlActivity::class.java
+                                        )
+                                    )
+                                }
+                            ) {
+                                Text("XML form")
+                            }
                         }
                     }
                 }
